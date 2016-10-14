@@ -22,7 +22,7 @@ while True:
 	count = 0
 	wlan0_list = []
 	wlan1_list = []
-	while count < 20:
+	while count < 50:
 		for line in cmd.stdout:
 			if 'Link Quality' in line:
 				wlan0_list.append(int(line[-10:-7]))
@@ -42,5 +42,5 @@ while True:
 			wlan0_list = []
 			wlan1_list = []
 
-		time.sleep(0.001)
+		time.sleep(0.0001)
 	count = 0
