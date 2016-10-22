@@ -21,13 +21,12 @@ while True:
                            stdout=subprocess.PIPE)
 	cmd2 = subprocess.Popen('iwconfig wlan2', shell=True,
                            stdout=subprocess.PIPE)
-	cmd3 = subprocess.Popen('iwconfig wlan3', shell=True,
-                           stdout=subprocess.PIPE)
+	
 	count = 0
 	wlan0_list = []
 	wlan1_list = []
 	wlan2_list = []
-	wlan3_list = []
+	
 	while count < 50:
 		for line in cmd.stdout:
 			if 'Link Quality' in line:
@@ -47,23 +46,36 @@ while True:
 			elif 'Not-Associated' in line:
 				print 'No signal'
 			
-		for line in cmd3.stdout:
-			if 'Link Quality' in line:
-				wlan3_list.append(int(line[-10:-7]))
-			elif 'Not-Associated' in line:
-				print 'No signal'
-				
 		count += 1
 		if count == 20:
 			w0 = calc_med(wlan0_list)
 			w1 = calc_med(wlan1_list)
 			w2 = calc_med(wlan2_list)
-			w3 = calc_med(wlan3_list)
-			print 'wlan0: ' + str(w0) + " wlan1: " + str(w1) + " wlan2: " + str(w2) + "wlan3: " + str(w3)
+			
+			print 'wlan0: ' + str(w0) + " wlan1: " + str(w1) + " wlan2: " + str(w2) 
+			
+			#Encontrar o quadrante
+			#Primeiro Quadrante
+			#wlan0 antena esquerda do drone
+			#wlan1 antena direita do drone
+			#wlan2 antena de trás do drone
+			
+		if ((w0>w1)&&(w0>w2)&&(w1>w2))
+			print "primeiro quadrante"
+			
+		if ((w1>w0)&&(w1>w2)&&(w0>w2))
+			print "segundo quadrante"
+
+		if ((w2>w1)&&(w2>w0)&&(w0>w1))
+			print "terceiro quadrante"
+			
+		if ((w2>w1)&&(w2>w0)&&(w1>w0))
+			print "quarto quadrante"
+			
 			wlan0_list = []
 			wlan1_list = []
 			wlan2_list = []
-			wlan3_list = []
+			
 
 		time.sleep(0.0001)
 	count = 0
