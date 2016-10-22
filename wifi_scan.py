@@ -60,17 +60,17 @@ while True:
 			#wlan1 antena direita do drone
 			#wlan2 antena de trás do drone
 			
-		if ((w0>w1)and(w0>w2)and(w1>w2))
-			print "primeiro quadrante"
+		#if ((w0>w1)and(w0>w2)and(w1>w2))
+		#	print "primeiro quadrante"
 			
-		if ((w1>w0)and(w1>w2)and(w0>w2))
-			print "segundo quadrante"
+		#if ((w1>w0)and(w1>w2)and(w0>w2))
+		#	print "segundo quadrante"
 
-		if ((w2>w1)and(w2>w0)and(w0>w1))
-			print "terceiro quadrante"
+		#if ((w2>w1)and(w2>w0)and(w0>w1))
+		#	print "terceiro quadrante"
 			
-		if ((w2>w1)and(w2>w0)and(w1>w0))
-			print "quarto quadrante"
+		#if ((w2>w1)and(w2>w0)and(w1>w0))
+		#	print "quarto quadrante"
 			
 			wlan0_list = []
 			wlan1_list = []
