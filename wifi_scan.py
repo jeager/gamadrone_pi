@@ -19,10 +19,14 @@ while True:
                            stdout=subprocess.PIPE)
 	cmd2 = subprocess.Popen('iwconfig wlan1', shell=True,
                            stdout=subprocess.PIPE)
+        cmd3 = subprocess.Popen('iwconfig wlan2', shell=True,
+                           stdout=subprocess.PIPE)
+
 	count = 0
 	wlan0_list = []
 	wlan1_list = []
-	while count < 50:
+	wlan2_list = []
+	while count < 100:
 		for line in cmd.stdout:
 			if 'Link Quality' in line:
 				wlan0_list.append(int(line[-10:-7]))
@@ -34,13 +38,22 @@ while True:
 				wlan1_list.append(int(line[-10:-7]))
 			elif 'Not-Associated' in line:
 				print 'No signal'
+
+		for line in cmd3.stdout:
+                        if 'Link Quality' in line:
+                                wlan2_list.append(int(line[-10:-7]))
+                        elif 'Not-Associated' in line:
+                                print 'No signal'
+
 		count += 1
 		if count == 20:
 			w0 = calc_med(wlan0_list)
 			w1 = calc_med(wlan1_list)
-			print 'wlan0: ' + str(w0) + " wlan1: " + str(w1)
+			w2 = calc_med(wlan2_list)
+			print 'wlan0: ' + str(w0) + " wlan1: " + str(w1) + " wlan2: " + str(w2)
 			wlan0_list = []
 			wlan1_list = []
+			wlan2_list = []
 
 		time.sleep(0.0001)
 	count = 0
