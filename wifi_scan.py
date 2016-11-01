@@ -3,7 +3,7 @@ import time
 import argparse
 import re
 
-def calc_med(list):
+def calc_med(list): # Calcular Média
 	med = 0
 	for a in list:
 		med += a
@@ -17,34 +17,36 @@ args = parser.parse_args()
 while True:
 	cmd = subprocess.Popen('iwconfig wlan0', shell=True,
                            stdout=subprocess.PIPE)
-	cmd2 = subprocess.Popen('iwconfig wlan1', shell=True,
+	cmd1 = subprocess.Popen('iwconfig wlan1', shell=True,
                            stdout=subprocess.PIPE)
         cmd3 = subprocess.Popen('iwconfig wlan2', shell=True,
                            stdout=subprocess.PIPE)
-
 	count = 0
 	wlan0_list = []
 	wlan1_list = []
 	wlan2_list = []
+
 	while count < 100:
-		for line in cmd.stdout:
-			if 'Link Quality' in line:
-				wlan0_list.append(int(line[-10:-7]))
-			elif 'Not-Associated' in line:
-				print 'No signal'
+		if cmd:
+			for line in cmd.stdout:
+				if 'Link Quality' in line:
+					wlan0_list.append(int(line[-10:-7]))
+				elif 'Not-Associated' in line:
+					print 'No signal'
 
-		for line in cmd2.stdout:
-			if 'Link Quality' in line:
-				wlan1_list.append(int(line[-10:-7]))
-			elif 'Not-Associated' in line:
-				print 'No signal'
-
-		for line in cmd3.stdout:
-                        if 'Link Quality' in line:
-                                wlan2_list.append(int(line[-10:-7]))
-                        elif 'Not-Associated' in line:
-                                print 'No signal'
-
+		if cmd2:
+			for line in cmd1.stdout:
+				if 'Link Quality' in line:
+					wlan1_list.append(int(line[-10:-7]))
+				elif 'Not-Associated' in line:
+					print 'No signal'
+		if cmd3:
+			for line in cmd2.stdout:
+				if 'Link Quality' in line:
+					wlan2_list.append(int(line[-10:-7]))
+				elif 'Not-Associated' in line:
+					print 'No signal'
+			
 		count += 1
 		if count == 20:
 			w0 = calc_med(wlan0_list)
@@ -54,6 +56,30 @@ while True:
 			wlan0_list = []
 			wlan1_list = []
 			wlan2_list = []
+			
+			#Encontrar o quadrante
+			#Primeiro Quadrante
+			#wlan0 antena esquerda do drone
+			#wlan1 antena direita do drone
+			#wlan2 antena de trás do drone
+			
+		#if ((w0>w1)and(w0>w2)and(w1>w2))
+		#	print "primeiro quadrante"
+			
+		#if ((w1>w0)and(w1>w2)and(w0>w2))
+		#	print "segundo quadrante"
+
+		#if ((w2>w1)and(w2>w0)and(w0>w1))
+		#	print "terceiro quadrante"
+			
+		#if ((w2>w1)and(w2>w0)and(w1>w0))
+		#	print "quarto quadrante"
+			
+			wlan0_list = []
+			wlan1_list = []
+			wlan2_list = []
+			
+>>>>>>> 11efd10d28c942eedfb790eef60ffeda3e48da3b
 
 		time.sleep(0.0001)
 	count = 0
