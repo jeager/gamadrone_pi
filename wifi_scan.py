@@ -5,6 +5,16 @@ import re
 
 
 def set_antena(code, wlan):
+"""
+Descrição: 
+Esta é uma função que seta o nome das antenas 
+utilizando o atributo hardware address de cada uma delas,
+dessa forma o posicionamento das antenas fica fixo em relação ao drone.
+
+Parâmetros:
+code - hardware address da antena.
+wlan - nome da antena.
+"""
         if code == '79':
                 global antena_2
                 antena_2 = wlan
@@ -15,7 +25,17 @@ def set_antena(code, wlan):
                 global antena_3
                 antena_3 = wlan
 
-def calc_med(list): # Calcular Media
+def calc_med(list):
+"""
+Descrição: 
+Está é uma função que calcula a média das medições
+de potência das antenas de acordo com a posição
+do usuário.
+
+Parâmetros:
+list - Lista que contém as medições de potência 
+das antenas. 
+"""
 	med = 0
 	for a in list:
 		med += a
@@ -24,6 +44,13 @@ def calc_med(list): # Calcular Media
 	else:
 		return 0
 def setup():
+"""
+Descrição:
+Função que executa os comandos no cmd para acessar
+os dados de cada antena e tomando como base no hardware
+address chamar o método set_antena() para
+definir a posição de cada uma delas.
+"""
         cmd = subprocess.Popen('ifconfig wlan0', shell=True,
                            stdout=subprocess.PIPE)
         cmd1 = subprocess.Popen('ifconfig wlan1', shell=True,
@@ -41,6 +68,14 @@ def setup():
                         set_antena(line[-5:-3], 'wlan2')
                         
 def read_antenas():
+"""
+Descrição:
+Realiza a execução dos comandos no cmd para medir
+as potências das antenas 100 vezes e calcular a média
+dessas medições. Em seguida ele define o quadrante que o 
+usuário se encontra a partir de comparações entre as 
+potências das antenas.
+"""
         while True:
                 cmd = subprocess.Popen('iwconfig ' + antena_1, shell=True,
                                    stdout=subprocess.PIPE)
@@ -84,13 +119,12 @@ def read_antenas():
                                 wlan0_list = []
                                 wlan1_list = []
                                 wlan2_list = []
-                                
-                                #Encontrar o quadrante
-                                #Primeiro Quadrante
-                                #wlan0 antena esquerda do drone
-                                #wlan1 antena direita do drone
-                                #wlan2 antena de tras do drone
-
+                                """
+                                Encontrar o quadrante
+                                w0 média da antena esquerda do drone
+                                w1 média da antena direita do drone
+                                wl média da antena de trás do drone
+                                """        
                                 if ((w1>w0)and(w0>w2)):
                                         print "primeiro quadrante, visão frontal"
                                 
