@@ -90,19 +90,24 @@ def read_antenas():
                                 #wlan0 antena esquerda do drone
                                 #wlan1 antena direita do drone
                                 #wlan2 antena de tras do drone
-                                
-                                if ((w0>w1)and(w0>w2)and(w1>w2)):
-                                        print "primeiro quadrante"
-                                        
-                                if ((w1>w0)and(w1>w2)and(w0>w2)):
-                                        print "segundo quadrante"
 
-                                if ((w2>w1)and(w2>w0)and(w0>w1)):
-                                        print "terceiro quadrante"
+                                if ((w1>w0)and(w0>w2)):
+                                        print "primeiro quadrante, visão frontal"
+                                
+                                if ((w0>w1)and(w1>w2)):
+                                        print "segundo quadrante, visão frontal"
+
+                                if ((w0>w1)and(w2>w1)):
+                                        print "terceiro quadrante, visão traseira"
                                         
-                                if ((w2>w1)and(w2>w0)and(w1>w0)):
-                                        print "quarto quadrante"
-                        
+                                if ((w1>w0)and(w2>w0)):
+                                        print "quarto quadrante, visão traseira"
+
+                                if ((w1>w0)and(w1>w2)):
+                                        print "zona morta, lado direito"
+
+                                if ((w0>w1)and(w0>w2)):
+                                        print "zona morta, lado esquerdo"
 
                         time.sleep(0.0001)
                 count = 0
