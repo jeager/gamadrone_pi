@@ -1,3 +1,4 @@
+#coding=utf8
 import subprocess
 import time
 import argparse
@@ -6,18 +7,39 @@ import calc_utils as calc
 import math
 
 
+
 def set_antena(code, wlan):
+        """
+        Descrição: 
+        Esta é uma função que seta o nome das antenas 
+        utilizando o atributo hardware address de cada uma delas,
+        dessa forma o posicionamento das antenas fica fixo em relação ao drone.
+
+        Parâmetros:
+        code - hardware address da antena.
+        wlan - nome da antena.
+        """
         if code == 'c1':
-                global antena_1
-                antena_1 = wlan
-        elif code == 'd6':
                 global antena_2
                 antena_2 = wlan
+        elif code == 'd6':
+                global antena_1
+                antena_1 = wlan
         elif code == 'ba':
                 global antena_3
                 antena_3 = wlan
 
-def calc_med(list): # Calcular Media
+def calc_med(list):
+        """
+        Descrição: 
+        Está é uma função que calcula a média das medições
+        de potência das antenas de acordo com a posição
+        do usuário.
+
+        Parâmetros:
+        list - Lista que contém as medições de potência 
+        das antenas. 
+        """
 	med = 0
 	for a in list:
 		med += a
@@ -27,6 +49,13 @@ def calc_med(list): # Calcular Media
 	else:
 		return 0
 def setup():
+        """
+        Descrição:
+        Função que executa os comandos no cmd para acessar
+        os dados de cada antena e tomando como base no hardware
+        address chamar o método set_antena() para
+        definir a posição de cada uma delas.
+        """
         cmd = subprocess.Popen('ifconfig wlan0', shell=True,
                            stdout=subprocess.PIPE)
         cmd1 = subprocess.Popen('ifconfig wlan1', shell=True,
@@ -48,6 +77,14 @@ def get_dbm(antena):
                                    stdout=subprocess.PIPE)
 
 def read_antenas():
+        """
+        Descrição:
+        Realiza a execução dos comandos no cmd para medir
+        as potências das antenas 100 vezes e calcular a média
+        dessas medições. Em seguida ele define o quadrante que o 
+        usuário se encontra a partir de comparações entre as 
+        potências das antenas.
+        """
         while True:
                 cmd = get_dbm(antena_1)
                 cmd1 = get_dbm(antena_2)
@@ -92,18 +129,10 @@ def read_antenas():
                                 y_u = calc.get_y(d0, d1, d2)
 
                                 #print 'd_1: ' + str(d0) + " d_2: " + str(d1) + " d_3: " + str(d2)
-                                #print 'antena_1: ' + str(w0) + " antena_2: " + str(w1) + " antena_3: " + str(w2) + " | " + str(x_u) + "|" + str(y_u)
+                                print 'antena_1: ' + str(w0) + " antena_2: " + str(w1) + " antena_3: " + str(w2) + " | " + str(x_u) + "|" + str(y_u)
                                 wlan0_list = []
                                 wlan1_list = []
                                 wlan2_list = []
-                                
-                                #Encontrar o quadrante
-                                #Primeiro Quadrante
-                                #wlan0 antena esquerda do drone
-                                #wlan1 antena direita do drone
-                                #wlan2 antena de tras do drone
-                                
-                        
 
                         time.sleep(0.0001)
                 count = 0
