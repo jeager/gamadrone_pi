@@ -2,15 +2,17 @@ import subprocess
 import time
 import argparse
 import re
+import calc_utils as calc
+import math
 
 
 def set_antena(code, wlan):
-        if code == '79':
-                global antena_2
-                antena_2 = wlan
-        elif code == 'd6':
+        if code == 'c1':
                 global antena_1
                 antena_1 = wlan
+        elif code == 'd6':
+                global antena_2
+                antena_2 = wlan
         elif code == 'ba':
                 global antena_3
                 antena_3 = wlan
@@ -19,6 +21,7 @@ def calc_med(list): # Calcular Media
 	med = 0
 	for a in list:
 		med += a
+	
 	if len(list) > 0:
 		return med/len(list)	
 	else:
@@ -40,14 +43,16 @@ def setup():
                 if 'HWaddr' in line:
                         set_antena(line[-5:-3], 'wlan2')
                         
+def get_dbm(antena):
+        return subprocess.Popen('iwconfig ' + antena, shell=True,
+                                   stdout=subprocess.PIPE)
+
 def read_antenas():
         while True:
-                cmd = subprocess.Popen('iwconfig ' + antena_1, shell=True,
-                                   stdout=subprocess.PIPE)
-                cmd1 = subprocess.Popen('iwconfig ' + antena_2, shell=True,
-                                   stdout=subprocess.PIPE)
-                cmd2 = subprocess.Popen('iwconfig ' + antena_3, shell=True,
-                                   stdout=subprocess.PIPE)           
+                cmd = get_dbm(antena_1)
+                cmd1 = get_dbm(antena_2)
+                cmd2 = get_dbm(antena_3)
+                
                 count = 0
                 wlan0_list = []
                 wlan1_list = []
@@ -80,7 +85,14 @@ def read_antenas():
                                 w1 = calc_med(wlan1_list)
                                 w2 = calc_med(wlan2_list)
 
-                                #print 'antena_1: ' + str(w0) + " antena_2: " + str(w1) + " antena_3: " + str(w2)
+                                d0 = calc.calc_distance_from_dbm(w0)
+                                d1 = calc.calc_distance_from_dbm(w1)
+                                d2 = calc.calc_distance_from_dbm(w2)
+                                x_u = calc.get_x(d0, d1)
+                                y_u = calc.get_y(d0, d1, d2)
+
+                                #print 'd_1: ' + str(d0) + " d_2: " + str(d1) + " d_3: " + str(d2)
+                                #print 'antena_1: ' + str(w0) + " antena_2: " + str(w1) + " antena_3: " + str(w2) + " | " + str(x_u) + "|" + str(y_u)
                                 wlan0_list = []
                                 wlan1_list = []
                                 wlan2_list = []
@@ -91,17 +103,6 @@ def read_antenas():
                                 #wlan1 antena direita do drone
                                 #wlan2 antena de tras do drone
                                 
-                                if ((w0>w1)and(w0>w2)and(w1>w2)):
-                                        print "primeiro quadrante"
-                                        
-                                if ((w1>w0)and(w1>w2)and(w0>w2)):
-                                        print "segundo quadrante"
-
-                                if ((w2>w1)and(w2>w0)and(w0>w1)):
-                                        print "terceiro quadrante"
-                                        
-                                if ((w2>w1)and(w2>w0)and(w1>w0)):
-                                        print "quarto quadrante"
                         
 
                         time.sleep(0.0001)
