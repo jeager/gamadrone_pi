@@ -122,9 +122,9 @@ def read_antenas():
                                 w1 = calc_med(wlan1_list)
                                 w2 = calc_med(wlan2_list)
 
-                                d0 = calc.calc_distance_from_dbm(w0)
-                                d1 = calc.calc_distance_from_dbm(w1)
-                                d2 = calc.calc_distance_from_dbm(w2)
+                                d0 = calc.calc_distance_from_dbm1(w0)
+                                d1 = calc.calc_distance_from_dbm2(w1)
+                                d2 = calc.calc_distance_from_dbm3(w2)
                                 x_u = calc.get_x(d0, d1)
                                 y_u = calc.get_y(d0, d1, d2)
 
