@@ -19,13 +19,13 @@ def set_antena(code, wlan):
         code - hardware address da antena.
         wlan - nome da antena.
         """
-        if code == 'c1':
+        if code == 'ba':
                 global antena_2
                 antena_2 = wlan
-        elif code == 'd6':
+        elif code == 'c1':
                 global antena_1
                 antena_1 = wlan
-        elif code == 'ba':
+        elif code == 'd6':
                 global antena_3
                 antena_3 = wlan
 
@@ -145,14 +145,8 @@ def read_antenas():
                                 w1 = calc_med(wlan1_list)
                                 w2 = calc_med(wlan2_list)
 
-                                d0 = calc.calc_distance_from_dbm(w0)
-                                d1 = calc.calc_distance_from_dbm(w1)
-                                d2 = calc.calc_distance_from_dbm(w2)
-                                x_u = calc.get_x(d0, d1)
-                                y_u = calc.get_y(d0, d1, d2)
-
-                                #print 'd_1: ' + str(d0) + " d_2: " + str(d1) + " d_3: " + str(d2)
-                                print 'antena_1: ' + str(w0) + " antena_2: " + str(w1) + " antena_3: " + str(w2) + " | " + str(x_u) + "|" + str(y_u)
+                                #print 'a_1: ' + str(w0) + " a_2: " + str(w1) + " a_3: " + str(22)
+                                print 'antena_1: ' + str(w0) + " antena_2: " + str(w1) + " antena_3: " + str(w2)
                                 wlan0_list = []
                                 wlan1_list = []
                                 wlan2_list = []
