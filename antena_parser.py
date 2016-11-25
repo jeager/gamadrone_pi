@@ -42,6 +42,8 @@ def parse_antena_3():
         i = i + 5
 
 def main():
-   parse_antena_3()
+    parse_antena_1()
+    parse_antena_2()
+    parse_antena_3()
         
 if __name__ == "__main__": main()
