@@ -48,6 +48,14 @@ def calc_med(list):
 		return med/len(list)	
 	else:
 		return 0
+
+def cmd_ifconfig(wlan):
+
+    cmd = subprocess.Popen('ifconfig ' + wlan, shell=True, stdout=subprocess.PIPE)
+    for line in cmd.stdout:
+                if 'HWaddr' in line:
+                        set_antena(line[-5:-3], wlan)
+
 def setup():
         """
         Descrição:
@@ -71,10 +79,21 @@ def setup():
         for line in cmd2.stdout:
                 if 'HWaddr' in line:
                         set_antena(line[-5:-3], 'wlan2')
+        # cmd_ifconfig('wlan0')
+        # cmd_ifconfig('wlan1')
+        # cmd_ifconfig('wlan2')
                         
 def get_dbm(antena):
         return subprocess.Popen('iwconfig ' + antena, shell=True,
                                    stdout=subprocess.PIPE)
+
+def create_potency_list(cmd, wlan_list = []):
+    if cmd:
+            for line in cmd.stdout:
+                    if 'Link Quality' in line:
+                            wlan_list.append(int(line[-10:-7]))
+                    elif 'Not-Associated' in line:
+                            print 'No signal'
 
 def read_antenas():
         """
@@ -115,6 +134,10 @@ def read_antenas():
                                                 wlan2_list.append(int(line[-10:-7]))
                                         elif 'Not-Associated' in line:
                                                 print 'No signal'
+
+                        # create_potency_list(cmd, wlan0_list)
+                        # create_potency_list(cmd1, wlan1_list)
+                        # create_potency_list(cmd2, wlan2_list)
                                 
                         count += 1
                         if count == 100:
