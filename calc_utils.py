@@ -1,8 +1,8 @@
 import math
 
-DISTANCE_CONST1 = 0.0000000000000673
-DISTANCE_CONST2 = 0.00000000000000673
-DISTANCE_CONST3 = 0.000000000000000169
+DISTANCE_CONST1 = 0.00000125
+DISTANCE_CONST2 = 0.00000158
+DISTANCE_CONST3 = 0.000000125
 ARM = 0.31
 def calc_distance1(prx):
     return DISTANCE_CONST1/prx
@@ -29,5 +29,5 @@ def get_x(d1, d2):
     return float((d1 - d2)/(4*ARM))
 
 def get_y(d1, d2 ,d3):
-    return float((1/(2*ARM))*(d3-(0.5*d2)-(0.5*d1)))
+    return float((1/(2*ARM))*(d3 -(d2/2)-(d1/2)))
     
