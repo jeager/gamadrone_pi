@@ -19,6 +19,10 @@ def set_antena(code, wlan):
         code - hardware address da antena.
         wlan - nome da antena.
         """
+        # cmd = subprocess.Popen('ifconfig ' + wlan, shell=True, stdout=subprocess.PIPE)
+        # for line in cmd.stdout:
+        #         if 'HWaddr' in line:
+        #                 code = line[-5:-3]
         if code == 'ba':
                 global antena_2
                 antena_2 = wlan
@@ -48,13 +52,6 @@ def calc_med(list):
 		return med/len(list)	
 	else:
 		return 0
-
-def cmd_ifconfig(wlan):
-
-    cmd = subprocess.Popen('ifconfig ' + wlan, shell=True, stdout=subprocess.PIPE)
-    for line in cmd.stdout:
-                if 'HWaddr' in line:
-                        set_antena(line[-5:-3], wlan)
 
 def setup():
         """
