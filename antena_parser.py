@@ -1,13 +1,39 @@
+#coding=utf8
+
 def get_num_antena_1(line):
+    """
+    Descrição:
+    Função que retorna apenas os números
+    referentes às medições da antena 1 
+    nas strings apresentadas. 
+    """
     return line[11:13]
 
 def get_num_antena_2(line):
+    """
+    Descrição:
+    Função que retorna apenas os números
+    referentes às medições da antena 2 
+    nas strings apresentadas. 
+    """
     return line[25:27]
 
 def get_num_antena_3(line):
+    """
+    Descrição:
+    Função que retorna apenas os números
+    referentes às medições da antena 3 
+    nas strings apresentadas. 
+    """
     return line[39:41]
 
 def parse_antena_1():
+    """
+    Descrição:
+    Função que abre os arquivos txt da antena 1 e 
+    sobrescreve o mesmo arquivo apenas com os números 
+    das medições utilizando o método get_num_antena_1().
+    """
     i = 10
     for x in range(0, 11):
         with open("antena_1_medicoes/antena_1_" + str(i) + "m.txt", "r+") as f:
@@ -20,6 +46,12 @@ def parse_antena_1():
 
 
 def parse_antena_2():
+    """
+    Descrição:
+    Função que abre os arquivos txt da antena 2 e 
+    sobrescreve o mesmo arquivo apenas com os números 
+    das medições utilizando o método get_num_antena_2().
+    """
     i = 10
     for x in range(0, 11):
         with open("antena_2_medicoes/antena_2_" + str(i) + "m.txt", "r+") as f:
@@ -31,6 +63,12 @@ def parse_antena_2():
         i = i + 5
 
 def parse_antena_3():
+    """
+    Descrição:
+    Função que abre os arquivos txt da antena 3 e 
+    sobrescreve o mesmo arquivo apenas com os números 
+    das medições utilizando o método get_num_antena_3().
+    """
     i = 10
     for x in range(0, 11):
         with open("antena_3_medicoes/antena_3_" + str(i) + "m.txt", "r+") as f:
