@@ -3,64 +3,17 @@ import matplotlib.pyplot as plt
 
 # ANTENA 1
 
-# Distancia = 1.0 m
-dbm_10 = numpy.loadtxt('antena_1_10_parsed.txt', skiprows=1, unpack=True) # Carrega os dados que estao no arquivo txt
-dbm_mean_10 = numpy.mean(dbm_10) # calcula a media
-print dbm_mean_10 
-
-# Distancia = 1.5 m
-dbm_15 = numpy.loadtxt('antena_1_15_parsed.txt', skiprows=1, unpack=True) # Carrega os dados que estao no arquivo txt
-dbm_mean_15 = numpy.mean(dbm_15) # calcula a media
-print dbm_mean_15
-
-# Distancia = 2.0 m
-dbm_20 = numpy.loadtxt('antena_1_20_parsed.txt', skiprows=1, unpack=True) # Carrega os dados que estao no arquivo txt
-dbm_mean_20 = numpy.mean(dbm_20) # calcula a media
-print dbm_mean_20
-
-# Distancia = 2.5 m
-dbm_25 = numpy.loadtxt('antena_1_25_parsed.txt', skiprows=1, unpack=True) # Carrega os dados que estao no arquivo txt
-dbm_mean_25 = numpy.mean(dbm_25) # calcula a media
-print dbm_mean_25
-
-# Distancia = 3.0 m
-dbm_30 = numpy.loadtxt('antena_1_30_parsed.txt', skiprows=1, unpack=True) # Carrega os dados que estao no arquivo txt
-dbm_mean_30 = numpy.mean(dbm_30) # calcula a media
-print dbm_mean_30
-
-# Distancia = 3.5 m
-dbm_35 = numpy.loadtxt('antena_1_35_parsed.txt', skiprows=1, unpack=True) # Carrega os dados que estao no arquivo txt
-dbm_mean_35 = numpy.mean(dbm_35) # calcula a media
-print dbm_mean_35
-
-# Distancia = 4.0 m
-dbm_40 = numpy.loadtxt('antena_1_40_parsed.txt', skiprows=1, unpack=True) # Carrega os dados que estao no arquivo txt
-dbm_mean_40 = numpy.mean(dbm_40) # calcula a media
-print dbm_mean_40
-
-# Distancia = 4.5 m
-dbm_45 = numpy.loadtxt('antena_1_45_parsed.txt', skiprows=1, unpack=True) # Carrega os dados que estao no arquivo txt
-dbm_mean_45 = numpy.mean(dbm_45) # calcula a media
-print dbm_mean_45
-
-# Distancia = 5.0 m
-dbm_50 = numpy.loadtxt('antena_1_50_parsed.txt', skiprows=1, unpack=True) # Carrega os dados que estao no arquivo txt
-dbm_mean_50 = numpy.mean(dbm_50) # calcula a media
-print dbm_mean_50
-
-# Distancia = 5.5 m
-dbm_55 = numpy.loadtxt('antena_1_55_parsed.txt', skiprows=1, unpack=True) # Carrega os dados que estao no arquivo txt
-dbm_mean_55 = numpy.mean(dbm_55) # calcula a media
-print dbm_mean_55
-
-# Distancia = 6.0 m
-dbm_60 = numpy.loadtxt('antena_1_60_parsed.txt', skiprows=1, unpack=True) # Carrega os dados que estao no arquivo txt
-dbm_mean_60 = numpy.mean(dbm_60) # calcula a media
-print dbm_mean_60
+dbm_array = []
+i = 10
+# Carregar valores
+for x in range(0, 11):
+	values = numpy.mean(numpy.loadtxt('antena_1_' + str(i) +  '_parsed.txt', skiprows=1, unpack=True))
+	dbm_array.append(values)
+	print values
+	i = i + 5
 
 # Vetor das medias 
-DBM_mean = numpy.array([dbm_mean_10, dbm_mean_15, dbm_mean_20, dbm_mean_25, dbm_mean_30, dbm_mean_35, dbm_mean_40, dbm_mean_45,
- dbm_mean_50, dbm_mean_55, dbm_mean_60])
+DBM_mean = numpy.array(dbm_array)
 print DBM_mean
 
 # Vetor das distancias
@@ -79,6 +32,7 @@ dd = numpy.array(betaHat[0] + betaHat[1] * DBM) # distancia obtida pelo metodo d
 # Polinomio de 3 grau
 p3 = numpy.poly1d(numpy.polyfit(DBM_mean, d, 3)) # Ajuste de curva
 D_p3 = p3(DBM) # Distancia obtida pelo o ajuste de curva
+print p3
 
 # Graficos 
 plt.figure(1)
