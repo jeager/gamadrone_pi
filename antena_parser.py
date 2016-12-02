@@ -6,6 +6,8 @@ def get_num_antena_1(line):
     Função que retorna apenas os números
     referentes às medições da antena 1 
     nas strings apresentadas. 
+    Parâmetro:
+    line - linhas dos arquivos txt.
     """
     return line[11:13]
 
@@ -15,6 +17,8 @@ def get_num_antena_2(line):
     Função que retorna apenas os números
     referentes às medições da antena 2 
     nas strings apresentadas. 
+    Parâmetro:
+    line - linhas dos arquivos txt.
     """
     return line[25:27]
 
@@ -24,6 +28,8 @@ def get_num_antena_3(line):
     Função que retorna apenas os números
     referentes às medições da antena 3 
     nas strings apresentadas. 
+    Parâmetro:
+    line - linhas dos arquivos txt.
     """
     return line[39:41]
 
