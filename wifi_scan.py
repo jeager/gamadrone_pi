@@ -110,6 +110,8 @@ def read_antenas():
                 wlan0_list = []
                 wlan1_list = []
                 wlan2_list = []
+                wlanx_list = []
+                wlany_list = []
 
                 while count < 100:
                         if cmd:
@@ -142,11 +144,30 @@ def read_antenas():
                                 w1 = calc_med(wlan1_list)
                                 w2 = calc_med(wlan2_list)
 
+                                d1 = calc.calc_distance_from_dbm1(w0)
+                                d2 = calc.calc_distance_from_dbm1(w1)
+                                d3 = calc.calc_distance_from_dbm1(w2)
+                                
+                                if (d1 > 6 and d2 > 6 and d3 > 6):
+                                        d1 = 6.0
+                                        d2 = 6.0
+                                        d3 = 6.0
+                                
+                                wlanx_list.append(calc.get_x(d1, d2))
+                                wlany_list.append(calc.get_y(d1, d2 ,d3))
+
+                                xmed = calc_med(wlanx_list)
+                                ymed = calc_med(wlany_list)
+                                
                                 #print 'a_1: ' + str(w0) + " a_2: " + str(w1) + " a_3: " + str(22)
-                                print 'antena_1: ' + str(w0) + " antena_2: " + str(w1) + " antena_3: " + str(w2)
+                                
+                                print 'antena_1: ' + str(d1) + " antena_2: " + str(d2) + " antena_3: " + str(d3) + " xmed: " + str(xmed) + " posy: " + str(ymed)
+
                                 wlan0_list = []
                                 wlan1_list = []
                                 wlan2_list = []
+                                wlanx_list = []
+                                wlany_list = []
 
                         time.sleep(0.0001)
                 count = 0
