@@ -157,9 +157,6 @@ def read_antenas():
                                 
                                 wlanx_list.append(calc.get_x(d1, d2))
                                 wlany_list.append(calc.get_y(d1, d2, d3))
-                                if(wlanx_list.len() < 100 and wlany_list.len() < 100):
-                                        xmed = calc_med(wlanx_list)
-                                        ymed = calc_med(wlany_list)
                                 
                                 #print 'a_1: ' + str(w0) + " a_2: " + str(w1) + " a_3: " + str(22)                               
                                 #print 'antena_1: ' + str(d1) + " antena_2: " + str(d2) + " antena_3: " + str(d3)
@@ -168,12 +165,12 @@ def read_antenas():
                                         xmed = calc_med(wlanx_list)
                                         ymed = calc_med(wlany_list)
                                         print " posx: " + str(xmed) + " posy: " + str(ymed)
+                                        wlanx_list = []
+                                        wlany_list = []
 
                                 wlan0_list = []
                                 wlan1_list = []
                                 wlan2_list = []
-                                wlanx_list = []
-                                wlany_list = []
 
                         time.sleep(0.0001)
                 count = 0
